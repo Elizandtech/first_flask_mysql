@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request, redirect, flash
 from mysqlconnection import connectToMySQL    # import the function that will return an instance of a connection
 app = Flask(__name__)
+app.secret_key="Validation"
+
+
 @app.route("/")
 def index():
     mysql = connectToMySQL('first_flask')	        # call the function, passing in the name of our db
@@ -34,7 +37,7 @@ def process():
             "occ": request.form['occ']
         }
         new_friend_id = mysql.query_db(query,data)
-        flash("Insert friend successful!")
+        flash("Insert friend successful!")          # flash message: exists for one redirect cycle
         return redirect('/')
 
             
